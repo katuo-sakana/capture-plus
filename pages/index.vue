@@ -1,6 +1,10 @@
 <template>
   <div class="container">
     <button v-on:click="fetch">キャプション</button>
+
+    <form action="api/caps" method="post">
+      <input type="submit" name="submit_name" value="送るよ!" />
+    </form>
   </div>
 </template>
 
