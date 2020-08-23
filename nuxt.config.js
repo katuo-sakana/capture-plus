@@ -47,7 +47,7 @@ export default {
   /*
    ** Nuxt.js modules
    */
-  modules: [],
+  modules: ["@nuxtjs/axios"],
   serverMiddleware: ["~/api/index.js"],
   /*
    ** Build configuration

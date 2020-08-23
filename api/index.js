@@ -6,7 +6,7 @@ app.get("/test", (req, res) => {
   res.send("API server works fine");
 });
 
-app.get("/caps", (req, res) => {
+app.post("/caps", (req, res) => {
   (async () => {
     const browser = await puppeteer.launch(); //Chromiumを起動
     const page = await browser.newPage(); //新しいタブを開く
