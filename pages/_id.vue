@@ -8,9 +8,8 @@
 <script>
 export default {
   asyncData({ params }) {
-    console.log(params);
-    return { imgSrc: "images/" + params.id + ".png" };
-  }
+    return { imgSrc: "images/" + params.id + "/01.png" };
+  },
   // data: () => {
   //   return {
   //     imgSrc: $nuxt.$route.path + ".png"

@@ -3,6 +3,7 @@ const puppeteer = require("puppeteer");
 const app = express();
 const bodyParser = require("body-parser");
 const uuid = require("uuid");
+const fs = require("fs");
 app.use(bodyParser.urlencoded({ extended: false }));
 
 app.get("/test", (req, res) => {
@@ -10,14 +11,26 @@ app.get("/test", (req, res) => {
 });
 
 app.post("/caps", (req, res) => {
-  const requestUrl = req.body.urldata;
+  const requestUrl01 = req.body.urldata01;
+  const requestUrl02 = req.body.urldata02;
+  const requestUrls = [requestUrl01, requestUrl02];
   const capsId = uuid.v4();
+  fs.mkdirSync(`static/images/${capsId}`, err => {
+    if (err) {
+      throw err;
+    }
+  });
   (async () => {
     const browser = await puppeteer.launch(); //Chromiumを起動
     const page = await browser.newPage(); //新しいタブを開く
-    await page.goto(requestUrl); //指定したURLに移動
+    await page.goto(requestUrl01); //指定したURLに移動
     await page.screenshot({
-      path: `static/images/${capsId}.png`,
+      path: `static/images/${capsId}/01.png`,
+      fullPage: true
+    }); //スクリーンショットを撮る
+    await page.goto(requestUrl02); //指定したURLに移動
+    await page.screenshot({
+      path: `static/images/${capsId}/02.png`,
       fullPage: true
     }); //スクリーンショットを撮る
     await browser.close(); //Chromiumを閉じる
