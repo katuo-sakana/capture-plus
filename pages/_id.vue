@@ -1,7 +1,7 @@
 <template>
   <div class="container">
-    <div class="container__contents"></div>
-    <div class="container__images">
+    <div class="container__contents" id="js-mark">{{name}}</div>
+    <div class="container__images" id="js-targe" v-on:click="updateMessage">
       <img :src="imgSrc" />
     </div>
     <!-- id:{{ $route.path }} -->
@@ -12,6 +12,22 @@
 export default {
   asyncData({ params }) {
     return { imgSrc: "images/" + params.id + "/00.png" };
+  },
+  data() {
+    return {
+      name: "北山本駅", // data ...（4）
+    };
+  },
+  methods: {
+    updateMessage: function (e) {
+      let offsetX = e.offsetX; // =>要素左上からのx座標
+      let offsetY = e.offsetY; // =>要素左上からのy座標
+      let pageX = e.pageX; // =>ウィンドウ左上からのx座標
+      let pageY = e.pageY; // =>ウィンドウ左上からのy座標
+      let clientX = e.clientX; // =>ページ左上からのx座標
+      let clientY = e.clientY; // =>ページ左上からのy座標
+      this.name = `要素左上からのx座標:${offsetX} 要素左上からのy座標:${offsetY} ウィンドウ左上からのx座標:${pageX} ウィンドウ左上からのy座標:${pageY}`;
+    },
   },
   // data: () => {
   //   return {
