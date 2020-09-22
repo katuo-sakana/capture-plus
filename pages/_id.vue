@@ -1,6 +1,18 @@
 <template>
   <div class="container">
-    <div class="container__contents" id="js-mark">{{name}}</div>
+    <div class="container__contents" id="js-mark">
+      {{ name }}
+
+      <v-container>
+        <v-row justify="center">
+          <v-col cols="6">
+            <v-card>
+              <v-card-title>Hello, Vuetify!</v-card-title>
+            </v-card>
+          </v-col>
+        </v-row>
+      </v-container>
+    </div>
     <div class="container__images" id="js-targe" v-on:click="updateMessage">
       <img :src="imgSrc" />
 
@@ -8,16 +20,46 @@
         <div v-if="item.status === true" :key="item.index">
           <div
             class="click-btn"
-            v-bind:style="{ top: item.positionY + 'px', left: item.positionX + 'px' }"
-          >{{item.index}}</div>
-          <form
+            v-bind:style="{
+              top: item.positionY + 'px',
+              left: item.positionX + 'px'
+            }"
+          >
+            {{ item.index }}
+          </div>
+          <!-- <form
             class="update-form"
             action
             method="post"
-            v-bind:style="{ top: item.positionFormY + 'px', left: item.positionFormX + 'px' }"
+            v-bind:style="{
+              top: item.positionFormY + 'px',
+              left: item.positionFormX + 'px'
+            }"
           >
             <button>sousin</button>
-          </form>
+          </form> -->
+          <v-form
+            class="update-form"
+            action
+            method="post"
+            v-bind:style="{
+              top: item.positionFormY + 'px',
+              left: item.positionFormX + 'px'
+            }"
+          >
+            <v-container fluid>
+              <v-row>
+                <v-col cols="12">
+                  <v-textarea
+                    solo
+                    name="input-7-4"
+                    label="Solo textarea"
+                  ></v-textarea>
+                </v-col>
+              </v-row>
+            </v-container>
+            <button>sousin</button>
+          </v-form>
         </div>
       </template>
     </div>
@@ -41,13 +83,13 @@ export default {
           positionX: 0,
           positionY: 0,
           positionFormX: 0,
-          positionFormY: 0,
-        },
-      ],
+          positionFormY: 0
+        }
+      ]
     };
   },
   methods: {
-    updateMessage: function (e) {
+    updateMessage: function(e) {
       let offsetX = e.offsetX; // =>要素左上からのx座標
       let offsetY = e.offsetY; // =>要素左上からのy座標
       // let pageX = e.pageX; // =>ウィンドウ左上からのx座標
@@ -60,11 +102,11 @@ export default {
         positionX: offsetX,
         positionY: offsetY,
         positionFormX: offsetX,
-        positionFormY: offsetY + 50,
+        positionFormY: offsetY + 50
       });
       this.counter++;
-    },
-  },
+    }
+  }
 };
 </script>
 

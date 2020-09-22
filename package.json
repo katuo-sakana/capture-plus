@@ -16,5 +16,7 @@
     "puppeteer": "^5.2.1",
     "uuid": "^8.3.0"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "@nuxtjs/vuetify": "^1.11.2"
+  }
 }
