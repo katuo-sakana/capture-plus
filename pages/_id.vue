@@ -51,6 +51,7 @@
               <v-row>
                 <v-col cols="12">
                   <v-textarea
+                    v-on:click.stop
                     solo
                     name="input-7-4"
                     label="Solo textarea"
