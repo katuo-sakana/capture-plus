@@ -5,12 +5,20 @@
       <img :src="imgSrc" />
 
       <template v-for="item in positionList">
-        <div
-          v-if="item.status === true"
-          :key="item.index"
-          class="click-btn"
-          v-bind:style="{ top: item.positionY + 'px', left: item.positionX + 'px' }"
-        >{{item.index}}</div>
+        <div v-if="item.status === true" :key="item.index">
+          <div
+            class="click-btn"
+            v-bind:style="{ top: item.positionY + 'px', left: item.positionX + 'px' }"
+          >{{item.index}}</div>
+          <form
+            class="update-form"
+            action
+            method="post"
+            v-bind:style="{ top: item.positionFormY + 'px', left: item.positionFormX + 'px' }"
+          >
+            <button>sousin</button>
+          </form>
+        </div>
       </template>
     </div>
     <!-- id:{{ $route.path }} -->
@@ -32,6 +40,8 @@ export default {
           index: 0,
           positionX: 0,
           positionY: 0,
+          positionFormX: 0,
+          positionFormY: 0,
         },
       ],
     };
@@ -49,6 +59,8 @@ export default {
         index: this.counter,
         positionX: offsetX,
         positionY: offsetY,
+        positionFormX: offsetX,
+        positionFormY: offsetY + 50,
       });
       this.counter++;
     },
@@ -75,8 +87,6 @@ img {
 }
 .click-btn {
   position: absolute;
-  top: 0;
-  left: 0;
   width: 2em;
   height: 2em;
   border-radius: 50%;
@@ -89,5 +99,9 @@ img {
   padding: 0.2em;
   border: 2px solid #fff;
   box-shadow: 2px 2px 2px #333;
+}
+
+.update-form {
+  position: absolute;
 }
 </style>
