@@ -3,7 +3,15 @@
     <div class="container__contents" id="js-mark">{{name}}</div>
     <div class="container__images" id="js-targe" v-on:click="updateMessage">
       <img :src="imgSrc" />
-      <div class="click-btn" v-bind:style="{ top: positionY + 'px', left: positionX + 'px' }">0</div>
+
+      <template v-for="item in positionList">
+        <div
+          v-if="item.status === true"
+          :key="item.index"
+          class="click-btn"
+          v-bind:style="{ top: item.positionY + 'px', left: item.positionX + 'px' }"
+        >{{item.index}}</div>
+      </template>
     </div>
     <!-- id:{{ $route.path }} -->
   </div>
@@ -16,9 +24,16 @@ export default {
   },
   data() {
     return {
-      name: "北山本駅", // data ...（4）
-      positionX: 0,
-      positionY: 0,
+      name: "",
+      counter: 1,
+      positionList: [
+        {
+          status: false,
+          index: 0,
+          positionX: 0,
+          positionY: 0,
+        },
+      ],
     };
   },
   methods: {
@@ -29,16 +44,15 @@ export default {
       // let pageY = e.pageY; // =>ウィンドウ左上からのy座標
       // let clientX = e.clientX; // =>ページ左上からのx座標
       // let clientY = e.clientY; // =>ページ左上からのy座標
-      this.positionX = offsetX;
-      this.positionY = offsetY;
-      this.name = `要素左上からのx座標:${offsetX} 要素左上からのy座標:${offsetY}`;
+      this.positionList.push({
+        status: true,
+        index: this.counter,
+        positionX: offsetX,
+        positionY: offsetY,
+      });
+      this.counter++;
     },
   },
-  // data: () => {
-  //   return {
-  //     imgSrc: $nuxt.$route.path + ".png"
-  //   };
-  // }
 };
 </script>
 
