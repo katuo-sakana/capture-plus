@@ -40,6 +40,7 @@
           </form> -->
           <v-form
             class="update-form"
+            v-if="item.formStatus === true"
             action
             method="post"
             v-bind:style="{
@@ -57,7 +58,7 @@
                     label="Solo textarea"
                   ></v-textarea>
                   <v-btn
-                    v-on:click.stop="isProcessing"
+                    v-on:click.stop="isProcessing(item.index)"
                     small
                     color="primary"
                     dark
@@ -88,6 +89,7 @@ export default {
       positionList: [
         {
           status: false,
+          formStatus: false,
           index: 0,
           positionX: 0,
           positionY: 0,
@@ -102,6 +104,7 @@ export default {
       if (this.processing === false) {
         return;
       }
+
       let offsetX = e.offsetX; // =>要素左上からのx座標
       let offsetY = e.offsetY; // =>要素左上からのy座標
       // let pageX = e.pageX; // =>ウィンドウ左上からのx座標
@@ -110,6 +113,7 @@ export default {
       // let clientY = e.clientY; // =>ページ左上からのy座標
       this.positionList.push({
         status: true,
+        formStatus: true,
         index: this.counter,
         positionX: offsetX,
         positionY: offsetY,
@@ -119,8 +123,9 @@ export default {
       this.counter++;
       this.processing = false;
     },
-    isProcessing: function () {
+    isProcessing: function (currentIndex) {
       this.processing = true;
+      this.positionList[currentIndex].formStatus = false;
     },
   },
 };
