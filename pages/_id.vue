@@ -1,17 +1,21 @@
 <template>
   <div class="container">
     <div class="container__contents" id="js-mark">
-      {{ name }}
-
-      <v-container>
-        <v-row justify="center">
-          <v-col cols="6">
-            <v-card>
-              <v-card-title>Hello, Vuetify!</v-card-title>
-            </v-card>
-          </v-col>
-        </v-row>
-      </v-container>
+      <template v-for="item in positionList">
+        <div v-if="item.status === true" :key="item.index">
+          <v-container>
+            <v-row justify="center">
+              <v-col cols="12">
+                <v-card>
+                  <v-card-title
+                    >{{ item.index }}：{{ item.message }}</v-card-title
+                  >
+                </v-card>
+              </v-col>
+            </v-row>
+          </v-container>
+        </div>
+      </template>
     </div>
     <div class="container__images" id="js-targe" v-on:click="updateMessage">
       <img :src="imgSrc" />
@@ -53,6 +57,7 @@
                 <v-col cols="12">
                   <v-textarea
                     v-on:click.stop
+                    v-model="item.message"
                     solo
                     name="input-7-4"
                     label="Solo textarea"
@@ -84,6 +89,7 @@ export default {
   data() {
     return {
       name: "",
+      message: "",
       counter: 1,
       processing: true,
       positionList: [
@@ -114,6 +120,7 @@ export default {
       this.positionList.push({
         status: true,
         formStatus: true,
+        message: "",
         index: this.counter,
         positionX: offsetX,
         positionY: offsetY,
