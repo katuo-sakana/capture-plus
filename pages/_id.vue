@@ -22,7 +22,7 @@
             class="click-btn"
             v-bind:style="{
               top: item.positionY + 'px',
-              left: item.positionX + 'px'
+              left: item.positionX + 'px',
             }"
           >
             {{ item.index }}
@@ -44,7 +44,7 @@
             method="post"
             v-bind:style="{
               top: item.positionFormY + 'px',
-              left: item.positionFormX + 'px'
+              left: item.positionFormX + 'px',
             }"
           >
             <v-container fluid>
@@ -56,10 +56,17 @@
                     name="input-7-4"
                     label="Solo textarea"
                   ></v-textarea>
+                  <v-btn
+                    v-on:click.stop="isProcessing"
+                    small
+                    color="primary"
+                    dark
+                    >送信</v-btn
+                  >
                 </v-col>
               </v-row>
             </v-container>
-            <button>sousin</button>
+            <!-- <button>sousin</button> -->
           </v-form>
         </div>
       </template>
@@ -77,6 +84,7 @@ export default {
     return {
       name: "",
       counter: 1,
+      processing: true,
       positionList: [
         {
           status: false,
@@ -84,13 +92,16 @@ export default {
           positionX: 0,
           positionY: 0,
           positionFormX: 0,
-          positionFormY: 0
-        }
-      ]
+          positionFormY: 0,
+        },
+      ],
     };
   },
   methods: {
-    updateMessage: function(e) {
+    updateMessage: function (e) {
+      if (this.processing === false) {
+        return;
+      }
       let offsetX = e.offsetX; // =>要素左上からのx座標
       let offsetY = e.offsetY; // =>要素左上からのy座標
       // let pageX = e.pageX; // =>ウィンドウ左上からのx座標
@@ -103,11 +114,15 @@ export default {
         positionX: offsetX,
         positionY: offsetY,
         positionFormX: offsetX,
-        positionFormY: offsetY + 50
+        positionFormY: offsetY + 50,
       });
       this.counter++;
-    }
-  }
+      this.processing = false;
+    },
+    isProcessing: function () {
+      this.processing = true;
+    },
+  },
 };
 </script>
 
