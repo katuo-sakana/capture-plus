@@ -21,10 +21,9 @@
       <img :src="imgSrc" />
 
       <template v-for="item in positionList">
-        <div v-if="item.status === true" :key="item.index">
+        <div v-if="item.status === true" :key="item.index" v-on:click.stop>
           <div
             class="click-btn"
-            v-on:click.stop
             v-bind:style="{
               top: item.positionY + 'px',
               left: item.positionX + 'px',
