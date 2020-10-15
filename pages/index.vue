@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <button v-on:click="fetch">キャプション</button>
-    <form action="api/caps" method="post">
+    <form class="top-form" action="api/caps" method="post">
       <input type="url" name="urldata01" id />
       <input type="url" name="urldata02" id />
       <input type="submit" name="submit_name" value="送るよ!" />
@@ -39,3 +39,9 @@ export default {
   // }
 };
 </script>
+
+<style>
+input {
+  border: 1px solid #000;
+}
+</style>
