@@ -24,6 +24,7 @@
         <div v-if="item.status === true" :key="item.index">
           <div
             class="click-btn"
+            v-on:click.stop
             v-bind:style="{
               top: item.positionY + 'px',
               left: item.positionX + 'px',
