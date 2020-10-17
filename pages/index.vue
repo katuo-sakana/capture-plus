@@ -1,18 +1,42 @@
 <template>
-  <div class="container">
-    <button v-on:click="fetch">キャプション</button>
-    <form class="top-form" action="api/caps" method="post">
-      <input type="url" name="urldata01" id />
-      <input type="url" name="urldata02" id />
-      <input type="submit" name="submit_name" value="送るよ!" />
-    </form>
-  </div>
+  <v-app>
+    <div>
+      <v-app-bar color="deep-purple accent-4" dense dark>
+        <v-toolbar-title>Capture plus</v-toolbar-title>
+      </v-app-bar>
+    </div>
+    <div class="container">
+      <p class="mb-0">指定のURLを入力ください</p>
+      <form class="top-form" action="api/caps" method="post">
+        <v-text-field
+          type="url"
+          name="urldata01"
+          :rules="rules"
+          hide-details="auto"
+        ></v-text-field>
+        <!-- <input type="url" name="urldata02" id /> -->
+        <v-btn
+          class="mt-5"
+          type="submit"
+          name="submit_name"
+          depressed
+          color="primary"
+        >
+          送信
+        </v-btn>
+      </form>
+    </div>
+  </v-app>
 </template>
 
 <script>
 // import axios from "axios";
 export default {
   data: () => ({
+    rules: [
+      (value) => !!value || "必須入力です",
+      (value) => (value && value.length >= 3) || "Min 3 characters",
+    ],
     item: [],
   }),
   methods: {
