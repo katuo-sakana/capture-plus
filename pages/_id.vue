@@ -43,7 +43,11 @@
                 left: item.positionFormX + 'px',
               }"
             >
-              <div class="update-form-upper"></div>
+              <div class="update-form-upper">
+                <button v-on:click.stop="closeMessage(item.index)">
+                  閉じる
+                </button>
+              </div>
               <div class="update-form-content">
                 <textarea
                   name=""
@@ -127,6 +131,11 @@ export default {
       this.processing = true;
       this.positionList[currentIndex].formStatus = false;
     },
+    closeMessage: function (currentIndex) {
+      this.processing = true;
+      this.positionList[currentIndex].status = false;
+      this.positionList[currentIndex].formStatus = false;
+    },
   },
 };
 </script>
@@ -171,6 +180,10 @@ img {
   background-color: #fff;
   text-align: right;
   padding-top: 0.5em;
+}
+
+.update-form-content-upper {
+  text-align: right;
 }
 
 .update-form-content {
