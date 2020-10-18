@@ -1,84 +1,77 @@
 <template>
-  <div class="container">
-    <div class="container__contents" id="js-mark">
-      <template v-for="item in positionList">
-        <div v-if="item.status === true" :key="item.index">
-          <v-container>
-            <v-row justify="center">
-              <v-col cols="12">
-                <v-card>
-                  <v-card-title
-                    >{{ item.index }}：{{ item.message }}</v-card-title
-                  >
-                </v-card>
-              </v-col>
-            </v-row>
-          </v-container>
-        </div>
-      </template>
-    </div>
-    <div class="container__images" id="js-targe" v-on:click="updateMessage">
-      <img :src="imgSrc" />
-
-      <template v-for="item in positionList">
-        <div v-if="item.status === true" :key="item.index" v-on:click.stop>
-          <div
-            class="click-btn"
-            v-bind:style="{
-              top: item.positionY + 'px',
-              left: item.positionX + 'px',
-            }"
-          >
-            {{ item.index }}
-          </div>
-          <!-- <form
-            class="update-form"
-            action
-            method="post"
-            v-bind:style="{
-              top: item.positionFormY + 'px',
-              left: item.positionFormX + 'px'
-            }"
-          >
-            <button>sousin</button>
-          </form> -->
-          <v-form
-            class="update-form"
-            v-if="item.formStatus === true"
-            action
-            method="post"
-            v-bind:style="{
-              top: item.positionFormY + 'px',
-              left: item.positionFormX + 'px',
-            }"
-          >
-            <v-container fluid>
-              <v-row>
+  <v-app>
+    <div class="container">
+      <div class="container__contents" id="js-mark">
+        <template v-for="item in positionList">
+          <div v-if="item.status === true" :key="item.index">
+            <v-container>
+              <v-row justify="center">
                 <v-col cols="12">
-                  <v-textarea
-                    v-on:click.stop
-                    v-model="item.message"
-                    solo
-                    name="input-7-4"
-                    label="Solo textarea"
-                  ></v-textarea>
-                  <v-btn
-                    v-on:click.stop="isProcessing(item.index)"
-                    small
-                    color="primary"
-                    dark
-                    >送信</v-btn
-                  >
+                  <v-card>
+                    <v-card-title
+                      >{{ item.index }}：{{ item.message }}</v-card-title
+                    >
+                  </v-card>
                 </v-col>
               </v-row>
             </v-container>
-            <!-- <button>sousin</button> -->
-          </v-form>
-        </div>
-      </template>
+          </div>
+        </template>
+      </div>
+      <div class="container__images" id="js-targe" v-on:click="updateMessage">
+        <img :src="imgSrc" />
+
+        <template v-for="item in positionList">
+          <div v-if="item.status === true" :key="item.index" v-on:click.stop>
+            <div
+              class="click-btn"
+              v-bind:style="{
+                top: item.positionY + 'px',
+                left: item.positionX + 'px',
+              }"
+            >
+              {{ item.index }}
+            </div>
+
+            <form
+              class="update-form"
+              v-if="item.formStatus === true"
+              action
+              method="post"
+              v-bind:style="{
+                top: item.positionFormY + 'px',
+                left: item.positionFormX + 'px',
+              }"
+            >
+              <div class="update-form-upper"></div>
+              <div class="update-form-content">
+                <textarea
+                  name=""
+                  id=""
+                  class="update-form-textarea"
+                  placeholder="コメントを入力してください"
+                  v-on:click.stop
+                  v-model="item.message"
+                  cols="30"
+                  rows="4"
+                ></textarea>
+              </div>
+              <div class="update-form-bottom">
+                <v-btn
+                  v-on:click.stop="isProcessing(item.index)"
+                  small
+                  color="primary"
+                  dark
+                  >送信</v-btn
+                >
+              </div>
+            </form>
+          </div>
+        </template>
+      </div>
+      <!-- id:{{ $route.path }} -->
     </div>
-    <!-- id:{{ $route.path }} -->
-  </div>
+  </v-app>
 </template>
 
 <script>
@@ -173,5 +166,24 @@ img {
 
 .update-form {
   position: absolute;
+  border: 1px solid #aaa;
+  border-radius: 0.8em;
+  background-color: #fff;
+  text-align: right;
+  padding-top: 0.5em;
+}
+
+.update-form-content {
+  /* border-top: 1px solid #aaa; */
+  border-bottom: 1px solid #aaa;
+  padding: 0.5em;
+}
+
+.update-form-textarea {
+  padding: 0.3em;
+}
+
+.update-form-bottom {
+  padding: 0.5em;
 }
 </style>
