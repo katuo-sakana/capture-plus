@@ -3,7 +3,7 @@
     <div class="container">
       <div class="container__contents" id="js-mark">
         <template v-for="item in positionList">
-          <div v-if="item.status === true" :key="item.index">
+          <div v-if="item.status === true" :key="item.index" v-on:click.stop="commentScroll(item.positionY)">
             <v-container>
               <v-row justify="center">
                 <v-col cols="12">
@@ -22,7 +22,7 @@
         <img :src="imgSrc" />
 
         <template v-for="item in positionList">
-          <div v-if="item.status === true" :key="item.index" v-on:click.stop>
+          <div v-if="item.status === true" :key="item.index">
             <div
               class="click-btn"
               v-bind:style="{
@@ -136,6 +136,12 @@ export default {
       this.positionList[currentIndex].status = false;
       this.positionList[currentIndex].formStatus = false;
     },
+    commentScroll: function (position) {
+      window.scrollTo({
+        top: position,
+        behavior: 'smooth'
+      })
+    }
   },
 };
 </script>
