@@ -25,6 +25,9 @@
                     <v-btn v-on:click.stop="commentScroll(item.positionY)" depressed>
                     移動
                     </v-btn>
+                    <v-btn v-on:click.stop="commentDelete(item.index)" color="error" depressed>
+                    削除
+                    </v-btn>
                   </v-card>
                 </v-col>
               </v-row>
@@ -155,6 +158,9 @@ export default {
         top: position,
         behavior: 'smooth'
       })
+    },
+    commentDelete: function (currentIndex) {
+      this.positionList[currentIndex].status = false;
     }
   },
 };
