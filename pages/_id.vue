@@ -3,14 +3,28 @@
     <div class="container">
       <div class="container__contents" id="js-mark">
         <template v-for="item in positionList">
-          <div v-if="item.status === true" :key="item.index" v-on:click.stop="commentScroll(item.positionY)">
+          <div v-if="item.status === true" :key="item.index">
             <v-container>
               <v-row justify="center">
                 <v-col cols="12">
                   <v-card>
-                    <v-card-title
-                      >{{ item.index }}：{{ item.message }}</v-card-title
-                    >
+                    <div>
+                      <span class="click-btn">
+                        {{ item.index }}
+                      </span>
+                      <textarea
+                        name=""
+                        id=""
+                        class="update-form-textarea"
+                        placeholder=""
+                        v-model="item.message"
+                        cols="30"
+                        rows="4"
+                      ></textarea>
+                    </div>
+                    <v-btn v-on:click.stop="commentScroll(item.positionY)" depressed>
+                    移動
+                    </v-btn>
                   </v-card>
                 </v-col>
               </v-row>
@@ -24,7 +38,7 @@
         <template v-for="item in positionList">
           <div v-if="item.status === true" :key="item.index" v-on:click.stop>
             <div
-              class="click-btn"
+              class="click-btn click-btn--position"
               v-bind:style="{
                 top: item.positionY + 'px',
                 left: item.positionX + 'px',
@@ -153,18 +167,22 @@ img {
 }
 .container {
   display: flex;
+  justify-content: space-between;
+  width: 1400px;
+  max-width: 100%;
+  margin-right: auto;
+  margin-left: auto;
 }
 .container__contents {
   width: 30%;
 }
 .container__images {
-  width: 70%;
+  width: 65%;
   /* padding-left: 5%;
   padding-right: 5%; */
   position: relative;
 }
 .click-btn {
-  position: absolute;
   width: 2em;
   height: 2em;
   border-radius: 50%;
@@ -177,6 +195,10 @@ img {
   padding: 0.2em;
   border: 2px solid #fff;
   box-shadow: 2px 2px 2px #333;
+}
+
+.click-btn--position {
+  position: absolute;
 }
 
 .update-form {
@@ -200,6 +222,7 @@ img {
 
 .update-form-textarea {
   padding: 0.3em;
+  width: 100%;
 }
 
 .update-form-bottom {
