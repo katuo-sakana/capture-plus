@@ -2,38 +2,40 @@
   <v-app>
     <div class="container">
       <div class="container__contents" id="js-mark">
-        <template v-for="item in positionList">
-          <div v-if="item.status === true" :key="item.index">
-            <v-container>
-              <v-row justify="center">
-                <v-col cols="12">
-                  <v-card>
-                    <div>
-                      <span class="click-btn">
-                        {{ item.index }}
-                      </span>
-                      <textarea
-                        name=""
-                        id=""
-                        class="update-form-textarea"
-                        placeholder=""
-                        v-model="item.message"
-                        cols="30"
-                        rows="4"
-                      ></textarea>
-                    </div>
-                    <v-btn v-on:click.stop="commentScroll(item.positionY)" depressed>
-                    移動
-                    </v-btn>
-                    <v-btn v-on:click.stop="commentDelete(item.index)" color="error" depressed>
-                    削除
-                    </v-btn>
-                  </v-card>
-                </v-col>
-              </v-row>
-            </v-container>
-          </div>
-        </template>
+        <div class="container__contents-inner">
+          <template v-for="item in positionList">
+            <div v-if="item.status === true" :key="item.index">
+              <v-container>
+                <v-row justify="center">
+                  <v-col cols="12">
+                    <v-card>
+                      <div>
+                        <span class="click-btn">
+                          {{ item.index }}
+                        </span>
+                        <textarea
+                          name=""
+                          id=""
+                          class="update-form-textarea"
+                          placeholder=""
+                          v-model="item.message"
+                          cols="30"
+                          rows="4"
+                        ></textarea>
+                      </div>
+                      <v-btn v-on:click.stop="commentScroll(item.positionY)" depressed>
+                      移動
+                      </v-btn>
+                      <v-btn v-on:click.stop="commentDelete(item.index)" color="error" depressed>
+                      削除
+                      </v-btn>
+                    </v-card>
+                  </v-col>
+                </v-row>
+              </v-container>
+            </div>
+          </template>
+        </div>
       </div>
       <div class="container__images" id="js-targe" v-on:click="updateMessage">
         <img :src="imgSrc" />
@@ -180,6 +182,14 @@ img {
   margin-left: auto;
 }
 .container__contents {
+  width: 30%;
+}
+.container__contents-inner {
+  position: fixed;
+  top: 0;
+  left: 2em;
+  overflow-y: auto;
+  height: 100vh;
   width: 30%;
 }
 .container__images {
