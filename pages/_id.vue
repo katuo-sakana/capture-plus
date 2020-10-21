@@ -4,7 +4,7 @@
       <div class="container__contents" id="js-mark">
         <div class="container__contents-inner">
           <template v-for="item in positionList">
-            <div v-if="item.status === true" :key="item.index">
+            <div v-bind:class="{ 'comment-done' : item.done }" v-if="item.status === true" :key="item.index">
               <v-container>
                 <v-row justify="center">
                   <v-col cols="12">
@@ -29,6 +29,21 @@
                       <v-btn v-on:click.stop="commentDelete(item.index)" color="error" depressed>
                       削除
                       </v-btn>
+                      <v-btn v-on:click.stop="commentDone(item.index)" color="success" depressed>
+                      完了
+                      </v-btn>
+                      <v-btn v-on:click.stop="commentNotDone(item.index)" color="info" depressed>
+                      未完了
+                      </v-btn>
+                      <!-- <v-btn
+                        tile
+                        color="success"
+                      >
+                        <v-icon left>
+                          mdi-pencil
+                        </v-icon>
+                        Edit
+                      </v-btn> -->
                     </v-card>
                   </v-col>
                 </v-row>
@@ -112,6 +127,7 @@ export default {
         {
           status: false,
           formStatus: false,
+          done: false,
           index: 0,
           positionX: 0,
           positionY: 0,
@@ -136,6 +152,7 @@ export default {
       this.positionList.push({
         status: true,
         formStatus: true,
+        done: false,
         message: "",
         index: this.counter,
         positionX: offsetX,
@@ -162,7 +179,14 @@ export default {
       })
     },
     commentDelete: function (currentIndex) {
+      this.processing = true;
       this.positionList[currentIndex].status = false;
+    },
+    commentDone: function (currentIndex) {
+      this.positionList[currentIndex].done = true;
+    },
+    commentNotDone: function (currentIndex) {
+      this.positionList[currentIndex].done = false;
     }
   },
 };
@@ -190,6 +214,9 @@ img {
   overflow-y: auto;
   height: 100vh;
   width: 30%;
+}
+.comment-done {
+  opacity: .5;
 }
 .container__images {
   width: 65%;
