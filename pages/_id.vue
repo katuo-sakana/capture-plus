@@ -19,6 +19,8 @@
                           class="update-form-textarea"
                           placeholder=""
                           v-model="item.message"
+                          v-bind:readonly="item.is_readonly"
+                          v-on:blur="item.is_readonly = true"
                           cols="30"
                           rows="4"
                         ></textarea>
@@ -35,15 +37,16 @@
                       <v-btn v-on:click.stop="commentNotDone(item.index)" color="info" depressed>
                       未完了
                       </v-btn>
-                      <!-- <v-btn
-                        tile
+                      <v-btn
                         color="success"
+                        depressed
+                         v-on:click.stop="commentEdit(item.index)"
                       >
                         <v-icon left>
                           mdi-pencil
                         </v-icon>
-                        Edit
-                      </v-btn> -->
+                        編集
+                      </v-btn>
                     </v-card>
                   </v-col>
                 </v-row>
@@ -128,6 +131,7 @@ export default {
           status: false,
           formStatus: false,
           done: false,
+          is_readonly: true,
           index: 0,
           positionX: 0,
           positionY: 0,
@@ -153,6 +157,7 @@ export default {
         status: true,
         formStatus: true,
         done: false,
+        is_readonly: true,
         message: "",
         index: this.counter,
         positionX: offsetX,
@@ -187,6 +192,9 @@ export default {
     },
     commentNotDone: function (currentIndex) {
       this.positionList[currentIndex].done = false;
+    },
+    commentEdit: function (currentIndex) {
+      this.positionList[currentIndex].is_readonly = false;
     }
   },
 };
