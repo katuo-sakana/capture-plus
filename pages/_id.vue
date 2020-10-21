@@ -187,7 +187,6 @@ img {
 .container__contents-inner {
   position: fixed;
   top: 0;
-  left: 2em;
   overflow-y: auto;
   height: 100vh;
   width: 30%;
