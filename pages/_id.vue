@@ -117,6 +117,13 @@
 
 <script>
 export default {
+  head () {
+    return {
+      meta: [
+        { name: 'robots', content: 'noindex,follow',}
+      ]
+    }
+  },
   asyncData({ params }) {
     return { imgSrc: "images/" + params.id + "/00.png" };
   },
