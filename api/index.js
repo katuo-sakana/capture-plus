@@ -5,6 +5,10 @@ const bodyParser = require("body-parser");
 const uuid = require("uuid");
 const fs = require("fs");
 app.use(bodyParser.urlencoded({ extended: false }));
+// app.listen(process.env.PORT || 3000);
+const LAUNCH_OPTION = process.env.DYNO
+  ? { args: ["--no-sandbox", "--disable-setuid-sandbox"] }
+  : { headless: false };
 
 app.get("/test", (req, res) => {
   res.send("API server works fine");
@@ -23,7 +27,7 @@ app.post("/caps", (req, res) => {
     }
   });
   (async () => {
-    const browser = await puppeteer.launch(); //Chromiumを起動
+    const browser = await puppeteer.launch(LAUNCH_OPTION); //Chromiumを起動
     const promiseList = [];
     const titleList = [];
     widthSets.forEach((widthSet, index) => {
