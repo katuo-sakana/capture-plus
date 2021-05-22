@@ -17,6 +17,10 @@
     "uuid": "^8.3.0"
   },
   "devDependencies": {
-    "@nuxtjs/vuetify": "^1.11.2"
+    "@nuxtjs/tailwindcss": "^4.1.2",
+    "@nuxtjs/vuetify": "^1.11.2",
+    "autoprefixer": "^9",
+    "postcss": "^7",
+    "tailwindcss": "npm:@tailwindcss/postcss7-compat"
   }
 }
