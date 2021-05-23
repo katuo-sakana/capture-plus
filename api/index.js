@@ -8,7 +8,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // app.listen(process.env.PORT || 3000);
 const LAUNCH_OPTION = process.env.DYNO
   ? { args: ["--no-sandbox", "--disable-setuid-sandbox"] }
-  : { headless: false };
+  : { headless: true };
 
 app.get("/test", (req, res) => {
   res.send("API server works fine");

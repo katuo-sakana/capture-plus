@@ -1,56 +1,33 @@
 <template>
-  <v-app>
+  <div>
     <div class="container">
       <div class="container__contents" id="js-mark">
-        <div class="container__contents-inner">
+        <div class="container__contents-inner p-3">
           <template v-for="item in positionList">
-            <div v-bind:class="{ 'comment-done' : item.done }" v-if="item.status === true" :key="item.index">
-              <v-container>
-                <v-row justify="center">
-                  <v-col cols="12">
-                    <v-card>
-                      <div>
-                        <span class="click-btn">
-                          {{ item.index }}
-                        </span>
-                        <textarea
-                          name=""
-                          id=""
-                          class="update-form-textarea"
-                          placeholder=""
-                          v-model="item.message"
-                          v-bind:readonly="item.is_readonly"
-                          v-on:blur="item.is_readonly = true"
-                          cols="30"
-                          rows="4"
-                        ></textarea>
-                      </div>
-                      <v-btn v-on:click.stop="commentScroll(item.positionY)" depressed>
-                      移動
-                      </v-btn>
-                      <v-btn v-on:click.stop="commentDelete(item.index)" color="error" depressed>
-                      削除
-                      </v-btn>
-                      <v-btn v-on:click.stop="commentDone(item.index)" color="success" depressed>
-                      完了
-                      </v-btn>
-                      <v-btn v-on:click.stop="commentNotDone(item.index)" color="info" depressed>
-                      未完了
-                      </v-btn>
-                      <v-btn
-                        color="success"
-                        depressed
-                         v-on:click.stop="commentEdit(item.index)"
-                      >
-                        <v-icon left>
-                          mdi-pencil
-                        </v-icon>
-                        編集
-                      </v-btn>
-                    </v-card>
-                  </v-col>
-                </v-row>
-              </v-container>
+            <div v-bind:class="{ 'comment-done' : item.done }" class="mt-3" v-if="item.status === true" :key="item.index">
+              <div class="rounded overflow-hidden shadow-lg">
+                <div>
+                    <span class="click-btn">
+                      {{ item.index }}
+                    </span>
+                    <textarea
+                      name=""
+                      id=""
+                      class="update-form-textarea"
+                      placeholder=""
+                      v-model="item.message"
+                      v-bind:readonly="item.is_readonly"
+                      v-on:blur="item.is_readonly = true"
+                      cols="30"
+                      rows="4"
+                    ></textarea>
+                </div>
+                <button v-on:click.stop="commentScroll(item.positionY)" class="mt-3 bg-gray-300 hover:bg-gray-400 hover:bg-blue-700 text-gray-800 font-bold py-2 px-4 rounded">移動</button>
+                <button v-on:click.stop="commentDelete(item.index)" class="mt-3 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">削除</button>
+                <button v-on:click.stop="commentDone(item.index)" class="mt-3 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">完了</button>
+                <button v-on:click.stop="commentNotDone(item.index)" class="mt-3 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">未完了</button>
+                <button v-on:click.stop="commentEdit(item.index)" class="mt-3 bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded">編集</button>
+              </div>
             </div>
           </template>
         </div>
@@ -112,7 +89,7 @@
       </div>
       <!-- id:{{ $route.path }} -->
     </div>
-  </v-app>
+  </div>
 </template>
 
 <script>

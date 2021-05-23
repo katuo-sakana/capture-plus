@@ -43,10 +43,11 @@ export default {
   /*
    ** Nuxt.js dev-modules
    */
-  buildModules: ["@nuxtjs/vuetify", "@nuxtjs/tailwindcss"],
-  vuetify: {
-    /* module options */
-  },
+  buildModules: ["@nuxtjs/tailwindcss"],
+  // buildModules: ["@nuxtjs/vuetify", "@nuxtjs/tailwindcss"],
+  // vuetify: {
+  //   /* module options */
+  // },
   /*
    ** Nuxt.js modules
    */
