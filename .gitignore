@@ -88,3 +88,6 @@ sw.*
 
 # Vim swap files
 *.swp
+
+# キャプチャして生成する画像
+static/images/*
