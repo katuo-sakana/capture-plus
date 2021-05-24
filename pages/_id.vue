@@ -22,7 +22,7 @@
                       rows="4"
                     ></textarea>
                 </div>
-                <button v-on:click.stop="commentScroll(item.positionY)" class="mt-3 bg-gray-300 hover:bg-gray-400 hover:bg-blue-700 text-gray-800 font-bold py-2 px-4 rounded">移動</button>
+                <button v-on:click.stop="commentScroll(item.positionY)" class="mt-3 bg-gray-300 hover:bg-gray-500 text-gray-800 font-bold py-2 px-4 rounded">移動</button>
                 <button v-on:click.stop="commentDelete(item.index)" class="mt-3 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">削除</button>
                 <button v-on:click.stop="commentDone(item.index)" class="mt-3 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">完了</button>
                 <button v-on:click.stop="commentNotDone(item.index)" class="mt-3 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">未完了</button>
