@@ -1,20 +1,24 @@
-# development
+# capture-plus
 
-## Build Setup
+## 概要
 
-```bash
-# install dependencies
-$ yarn install
+URL : [https://capture-plus.herokuapp.com/](https://capture-plus.herokuapp.com/)  
+URL を入力して送信していただけると、入力した URL キャプチャして、表示されたキャプチャ画像に対してコメントを書くことができます。  
+指定の Web ページに対しての修正依頼などに活用いただけます。
 
-# serve with hot reload at localhost:3000
-$ yarn dev
+### 開発したきっかけ
 
-# build for production and launch server
-$ yarn build
-$ yarn start
+普段サイト制作をしていると Web ページに対する修正の機会が多くあります。  
+テキストだけでは伝わりにくいことも多いので、気軽に Web ページに対してコメントを書けると業務上捗ると思い作成しました。  
+すでに同じようなことができるサービスがありますが、ある一定のラインから有料だったり、海外製で英語だったりするので、  
+日本語で無料のものを作成してより多くの人に使っていただければと思います。
 
-# generate static project
-$ yarn generate
-```
+## 使用技術やデプロイ情報
 
-For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
+- Nuxt.js
+- Express
+- Heroku
+- Tailwind CSS
+- PostgreSQL
+
+## 機能一覧
