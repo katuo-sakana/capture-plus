@@ -1,3 +1,6 @@
+require("dotenv").config();
+const { DB_HOST, DB_PORT, DB_DATABASE, DB_USERNAME, DB_PASSWORD } = process.env;
+
 export default {
   /*
    ** Nuxt rendering mode
@@ -57,5 +60,12 @@ export default {
    ** Build configuration
    ** See https://nuxtjs.org/api/configuration-build/
    */
-  build: {}
+  build: {},
+  env: {
+    DB_HOST,
+    DB_PORT,
+    DB_USERNAME,
+    DB_DATABASE,
+    DB_PASSWORD
+  }
 };

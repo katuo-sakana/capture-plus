@@ -4,14 +4,36 @@ const app = express();
 const bodyParser = require("body-parser");
 const uuid = require("uuid");
 const fs = require("fs");
+const pg = require("pg");
 app.use(bodyParser.urlencoded({ extended: false }));
 // app.listen(process.env.PORT || 3000);
 const LAUNCH_OPTION = process.env.DYNO
   ? { args: ["--no-sandbox", "--disable-setuid-sandbox"] }
   : { headless: true };
 
-app.get("/test", (req, res) => {
-  res.send("API server works fine");
+app.get("/test", (req, res, next) => {
+  // res.send("API server works fine");
+  var pool = new pg.Pool({
+    database: process.env.DB_DATABASE,
+    user: process.env.DB_USERNAME,
+    password: process.env.DB_PASSWORD,
+    host: process.env.DB_HOST,
+    port: process.env.DB_PORT
+  });
+  pool.connect(function(err, client) {
+    if (err) {
+      console.log(err);
+    } else {
+      client.query("SELECT name FROM staff", function(err, result) {
+        res.send(result.rows[0].name);
+        // res.render("index", {
+        //   title: "Express",
+        //   datas: result.rows[0].name
+        // });
+        // console.log(result); //コンソール上での確認用なため、この1文は必須ではない。
+      });
+    }
+  });
 });
 
 app.post("/caps", (req, res) => {
