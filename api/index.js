@@ -5,6 +5,7 @@ const bodyParser = require("body-parser");
 const uuid = require("uuid");
 const fs = require("fs");
 const pg = require("pg");
+const Page = require("./models/page");
 const Staff = require("./models/staff");
 app.use(bodyParser.urlencoded({ extended: false }));
 // app.listen(process.env.PORT || 3000);
@@ -13,8 +14,8 @@ const LAUNCH_OPTION = process.env.DYNO
   : { headless: true };
 
 app.get("/test", (req, res, next) => {
-  Staff.findAll().then(staffs => {
-    res.send(staffs[0].name);
+  Page.findAll().then(pages => {
+    res.send(pages[0].url);
   });
   // res.send("API server works fine");
   // var pool = new pg.Pool({
@@ -99,6 +100,29 @@ app.post("/caps", (req, res) => {
     // }); //スクリーンショットを撮る
 
     await browser.close(); //Chromiumを閉じる
+
+    await Page.build({
+      id: 2,
+      // counter: 1,
+      // processing: true,
+      url: capsId
+      // createdAt: new Date(),
+      // updatedAt: new Date()
+    }).save();
+
+    // await Staff.build({
+    //   id: 4,
+    //   name: "tarou",
+    //   age: 21
+    // }).save();
+
+    // await Staff.create({
+    //   name: "tarou",
+    //   age: 21
+    // }).then(staff => {
+    //   res.redirect(`/${capsId}`);
+    // });
+
     await res.redirect(`/${capsId}`); // awaitしてリダイレクトしないとページ遷移時に画像が表示されないため。（スクリーンショットが撮り終わったタイミングの処理をvueに記述すればうまくいくかも？）
   })();
 
