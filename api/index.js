@@ -51,9 +51,10 @@ app.post("/caps", (req, res) => {
   const capsId = uuid.v4();
   let recentId = 0; // 最新のIDを取得
   Page.findAll().then(pages => {
-    recentId = pages[pages.length - 1].id;
+    if (pages.length) {
+      recentId = pages[pages.length - 1].id;
+    }
   });
-  console.log(recentId);
   fs.mkdirSync(`static/images/${capsId}`, err => {
     if (err) {
       throw err;
@@ -106,11 +107,10 @@ app.post("/caps", (req, res) => {
 
     await browser.close(); //Chromiumを閉じる
 
-    console.log(recentId);
     await Page.build({
       id: recentId + 1,
       // counter: 1,
-      // processing: true,
+      processing: true,
       url: capsId
       // createdAt: new Date(),
       // updatedAt: new Date()
