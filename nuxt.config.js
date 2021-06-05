@@ -38,6 +38,9 @@ export default {
    ** https://nuxtjs.org/guide/plugins
    */
   plugins: [],
+  axios: {
+    baseUrl: process.env.BASE_URL || "http://localhost:3000"
+  },
   /*
    ** Auto import components
    ** See https://nuxtjs.org/api/configuration-components

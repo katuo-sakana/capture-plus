@@ -15,7 +15,8 @@ const LAUNCH_OPTION = process.env.DYNO
 
 app.get("/test", (req, res, next) => {
   Page.findAll().then(pages => {
-    res.send(pages[0].url);
+    res.send("test");
+    // res.send(pages[0].url);
   });
 });
 

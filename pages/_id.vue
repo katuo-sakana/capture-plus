@@ -88,6 +88,7 @@
         </template>
       </div>
       <!-- id:{{ $route.path }} -->
+      {{post}}
     </div>
   </div>
 </template>
@@ -101,9 +102,18 @@ export default {
       ]
     }
   },
-  asyncData({ params }) {
-    return { imgSrc: "images/" + params.id + "/00.png" };
+  async asyncData({ params,$axios }) {
+    const post = await $axios.$get('/api/test');
+    return {
+      post: post,
+      imgSrc: "images/" + params.id + "/00.png"
+    };
   },
+  // async fetch() {
+  //     this.mountains = await fetch(
+  //       'https://api.nuxtjs.dev/mountains'
+  //     ).then(res => res.json())
+  //   },
   data() {
     return {
       name: "",
