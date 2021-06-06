@@ -32,8 +32,8 @@
           </template>
         </div>
       </div>
-      <div class="container__images" id="js-targe" v-on:click="updateMessage">
-        <img :src="imgSrc" />
+      <div class="container__images">
+        <img :src="imgSrc" v-on:click="updateMessage" id="js-targe" />
 
         <template v-for="item in positionList">
           <div v-if="item.status === true" :key="item.index" v-on:click.stop>
@@ -202,10 +202,12 @@ img {
 .container {
   display: flex;
   justify-content: space-between;
-  width: 1400px;
+  width: 1500px;
   max-width: 100%;
   margin-right: auto;
   margin-left: auto;
+  padding-left: 3%;
+  padding-right: 3%;
 }
 .container__contents {
   width: 30%;
@@ -252,6 +254,7 @@ img {
   background-color: #fff;
   text-align: right;
   padding-top: 0.5em;
+  width: 280px;
 }
 
 .update-form-content-upper {
