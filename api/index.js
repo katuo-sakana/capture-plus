@@ -6,6 +6,7 @@ const uuid = require("uuid");
 const fs = require("fs");
 const pg = require("pg");
 const Page = require("./models/page");
+const Comment = require("./models/comment");
 const Staff = require("./models/staff");
 app.use(bodyParser.urlencoded({ extended: false }));
 // app.listen(process.env.PORT || 3000);
@@ -20,6 +21,36 @@ app.get("/test", (req, res, next) => {
   });
 });
 
+app.get("/commentCreate", (req, res, next) => {
+  let recentId = 0; // 最新のIDを取得
+  (async () => {
+    await Comment.findAll().then(comments => {
+      if (comments.length) {
+        recentId = comments[comments.length - 1].id;
+      }
+    });
+
+    await Comment.build({
+      id: recentId + 1,
+      status: true,
+      form_status: true,
+      done: true,
+      is_readonly: true,
+      message: "testtext",
+      index: 1,
+      position_x: 30,
+      position_y: 40,
+      position_form_x: 30,
+      position_form_y: 30,
+      page_id: 1
+      // createdAt: "2021-06-06 16:46:14",
+      // updatedAt: "2021-06-06 16:46:14"
+    }).save();
+
+    await res.send("test");
+  })();
+});
+
 app.post("/caps", (req, res) => {
   const DCL = { waitUntil: "domcontentloaded" };
   const requestUrl01 = req.body.urldata01;
@@ -29,11 +60,6 @@ app.post("/caps", (req, res) => {
   // const requestUrls = [requestUrl01, requestUrl02];
   const capsId = uuid.v4();
   let recentId = 0; // 最新のIDを取得
-  Page.findAll().then(pages => {
-    if (pages.length) {
-      recentId = pages[pages.length - 1].id;
-    }
-  });
   fs.mkdirSync(`static/images/${capsId}`, err => {
     if (err) {
       throw err;
@@ -74,6 +100,11 @@ app.post("/caps", (req, res) => {
 
     await browser.close(); //Chromiumを閉じる
 
+    await Page.findAll().then(pages => {
+      if (pages.length) {
+        recentId = pages[pages.length - 1].id;
+      }
+    });
     await Page.build({
       id: recentId + 1,
       processing: true,
