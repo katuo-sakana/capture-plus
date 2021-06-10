@@ -52,7 +52,8 @@ app.get("/commentCreate", (req, res, next) => {
 });
 
 app.post("/caps", (req, res) => {
-  const DCL = { waitUntil: "domcontentloaded" };
+  const DCL = { waitUntil: "networkidle0" };
+  // const DCL = { waitUntil: "domcontentloaded" };
   const requestUrl01 = req.body.urldata01;
   // const widthSets = ["full", 700, 400];
   const widthSets = ["full"];
