@@ -3,6 +3,11 @@
     <div class="container">
       <div class="container__contents" id="js-mark">
         <div class="container__contents-inner p-3">
+          <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+            <div class="container d-flex justify-content-end">
+              <button v-on:click.stop="commentCreate(positionList)" class="mt-3 bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded">保存する</button>
+            </div>
+          </nav>
           <template v-for="item in positionList">
             <div v-bind:class="{ 'comment-done' : item.done }" class="mt-3" v-if="item.status === true" :key="item.index">
               <div class="rounded overflow-hidden shadow-lg">
@@ -75,20 +80,17 @@
                 ></textarea>
               </div>
               <div class="update-form-bottom">
-                <v-btn
-                  v-on:click.stop="isProcessing(item.index)"
-                  small
-                  color="primary"
-                  dark
-                  >送信</v-btn
-                >
+                <button v-on:click.stop="isProcessing(item.index)">
+                  送信
+                </button>
               </div>
             </form>
           </div>
         </template>
       </div>
       <!-- id:{{ $route.path }} -->
-      {{post}}
+      <!-- {{pageid}}
+      {{this.page_id}} -->
     </div>
   </div>
 </template>
@@ -103,9 +105,10 @@ export default {
     }
   },
   async asyncData({ params,$axios }) {
-    const post = await $axios.$get('/api/test');
+    const getPageId = await $axios.$post('/api/url',{url:params.id});
+    // this.page_id = getPageId;
     return {
-      post: post,
+      pageid: getPageId,
       imgSrc: "images/" + params.id + "/00.png"
     };
   },
@@ -120,18 +123,11 @@ export default {
       message: "",
       counter: 1,
       processing: true,
-      positionList: [
-        {
-          status: false,
-          formStatus: false,
-          done: false,
-          is_readonly: true,
-          index: 0,
-          positionX: 0,
-          positionY: 0,
-          positionFormX: 0,
-          positionFormY: 0,
-        },
+      page_id: 1,
+       // 初期値としてからのオブジェクトを入れてないと、updateMessageがうまく動作しないため
+      positionList:
+      [
+        {}
       ],
     };
   },
@@ -189,7 +185,49 @@ export default {
     },
     commentEdit: function (currentIndex) {
       this.positionList[currentIndex].is_readonly = false;
-    }
+    },
+    async commentCreate(positionList) {
+
+      console.log('test');
+      console.log(this.$nuxt.$route.params.id); // url取得ここからpostでID取得
+      const getPageId = await this.$axios.$post('/api/url',{url:this.$nuxt.$route.params.id});
+      await console.log(getPageId);
+      for(let positionListItem of positionList){
+        // オブジェクトが空ならばループをスキップ
+        if (0 === Object.keys(positionListItem).length) {
+          continue;
+        }
+        const request = {
+          status: positionListItem.status,
+          form_status: positionListItem.formStatus,
+          done: positionListItem.done,
+          is_readonly: positionListItem.is_readonly,
+          message: positionListItem.message,
+          index: positionListItem.index,
+          position_x: positionListItem.positionX,
+          position_y: positionListItem.positionY,
+          // window_y: positionListItem.window_y,
+          position_form_x: positionListItem.positionFormX,
+          position_form_y: positionListItem.positionFormY,
+          // page_id: parseInt(this.pageid),
+          page_id: parseInt(getPageId),
+          // page_id: 2,
+        };
+        // console.log(request);
+
+        const response = await this.$axios.$post('api/commentCreate', request);
+        console.log(response);
+      }
+      // this.isLikedBy = true
+      // this.countLikes = response.data.countLikes
+
+
+
+      // await axios.post('/' + this.url, article).then(res => {
+      //   console.log(res.data.title);
+      //   console.log(res.data.content);
+      // });
+    },
   },
 };
 </script>
