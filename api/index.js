@@ -36,24 +36,51 @@ app.post("/commentCreate", (req, res) => {
       }
     });
 
-    await Comment.build({
-      id: recentId + 1,
-      status: req.body.status,
-      form_status: req.body.form_status,
-      done: req.body.done,
-      is_readonly: req.body.is_readonly,
-      message: req.body.message,
-      index: req.body.index,
-      position_x: req.body.position_x,
-      position_y: req.body.position_y,
-      position_form_x: req.body.position_form_x,
-      position_form_y: req.body.position_form_y,
-      page_id: req.body.page_id
-      // createdAt: "2021-06-06 16:46:14",
-      // updatedAt: "2021-06-06 16:46:14"
-    }).save();
+    await Comment.findOrCreate({
+      where: {
+        index: req.body.index,
+        page_id: req.body.page_id
+      },
+      defaults: {
+        id: recentId + 1,
+        status: req.body.status,
+        form_status: req.body.form_status,
+        done: req.body.done,
+        is_readonly: req.body.is_readonly,
+        message: req.body.message,
+        index: req.body.index,
+        position_x: req.body.position_x,
+        position_y: req.body.position_y,
+        position_form_x: req.body.position_form_x,
+        position_form_y: req.body.position_form_y,
+        page_id: req.body.page_id
+        // createdAt: "2021-06-06 16:46:14",
+        // updatedAt: "2021-06-06 16:46:14"
+      }
+    }).then(([comment, created]) => {
+      if (created) {
+        // データが新規作成された場合
+        //
+        console.log("create");
+      } else {
+        // データを更新する場合
+        comment.status = req.body.status;
+        comment.form_status = req.body.form_status;
+        comment.done = req.body.done;
+        comment.is_readonly = req.body.is_readonly;
+        comment.message = req.body.message;
+        comment.index = req.body.index;
+        comment.position_x = req.body.position_x;
+        comment.position_y = req.body.position_y;
+        comment.position_form_x = req.body.position_form_x;
+        comment.position_form_y = req.body.position_form_y;
+        comment.page_id = req.body.page_id;
+        comment.save();
+      }
+      res.send("text");
+    });
 
-    await res.send("text");
+    // await res.send("text");
   })();
 });
 
