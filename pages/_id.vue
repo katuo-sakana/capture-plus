@@ -3,11 +3,11 @@
     <div class="container">
       <div class="container__contents" id="js-mark">
         <div class="container__contents-inner p-3">
-          <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+          <!-- <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container d-flex justify-content-end">
               <button v-on:click.stop="commentCreate(positionList)" class="mt-3 bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded">保存する</button>
             </div>
-          </nav>
+          </nav> -->
           <template v-for="item in positionList">
             <div v-bind:class="{ 'comment-done' : item.done }" class="mt-3" v-if="item.status === true" :key="item.index">
               <div class="rounded overflow-hidden shadow-lg">
