@@ -11,7 +11,13 @@ const dbConfig = new Sequelize(
     // 使用する DB 製品を指定
     dialect: "postgres",
 
-    port: process.env.DB_PORT
+    port: process.env.DB_PORT,
+    dialectOptions: {
+      ssl: {
+        require: true,
+        rejectUnauthorized: false
+      }
+    }
   }
 );
 
