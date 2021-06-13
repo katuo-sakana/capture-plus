@@ -18,9 +18,28 @@ const LAUNCH_OPTION = process.env.DYNO
 // _id.vueのasyncDataでページURLを取得してそれをもとに、page_idを返却
 app.post("/url", (req, res) => {
   const pageUrl = req.body.url;
+  // console.log(pageUrl + "urlですよ");
   Page.findOne({ where: { url: pageUrl } }).then(page => {
     res.send(page.id.toString()); // 文字列にしないと「Invalid status code: 3 」というエラーが出る
   });
+});
+
+app.post("/getComment", (req, res) => {
+  const commentsdata = [];
+  // console.log(req.body);
+  const pageId = req.body.pageId;
+  // console.log("ttttt");
+  // console.log(pageId);
+  (async () => {
+    await Comment.findAll({ where: { page_id: pageId } }).then(comments => {
+      for (let comment of comments) {
+        console.log("コメント確認" + comment);
+        commentsdata.push(comment);
+      }
+    });
+    await console.log(commentsdata);
+    await res.send(commentsdata);
+  })();
 });
 
 app.post("/commentCreate", (req, res) => {
@@ -32,9 +51,13 @@ app.post("/commentCreate", (req, res) => {
   (async () => {
     await Comment.findAll().then(comments => {
       if (comments.length) {
-        recentId = comments[comments.length - 1].id;
+        // recentId = comments[comments.length - 1].id;
+        recentId = comments.length;
       }
     });
+
+    await console.log(recentId);
+    await console.log(req.body.page_id);
 
     await Comment.findOrCreate({
       where: {

@@ -131,6 +131,39 @@ export default {
       ],
     };
   },
+  mounted: function () {
+    this.$nextTick(async function () {
+      // ビュー全体がレンダリングされた後にのみ実行されるコード
+      const getPageId = await this.$axios.$post('/api/url',{url:this.$nuxt.$route.params.id});
+      const commentsdata = await this.$axios.$post('/api/getComment',{pageId:getPageId});
+      console.log(commentsdata);
+      if(await commentsdata != 0) {
+        // counter
+        await console.log(commentsdata.length);
+        this.counter = await commentsdata.length + 1;
+
+        // positionList
+        const positionList = await commentsdata;
+        const positionListChange = [{}];
+        for await (const positionListItem of positionList) {
+          console.log(positionListItem);
+          positionListChange.push({
+            status: Boolean(positionListItem.status),
+            formStatus: Boolean(positionListItem.form_status),
+            done: Boolean(positionListItem.done),
+            is_readonly: Boolean(positionListItem.is_readonly),
+            message: positionListItem.message,
+            index: positionListItem.index,
+            positionX: positionListItem.position_x,
+            positionY: positionListItem.position_y,
+            positionFormX: positionListItem.position_form_x,
+            positionFormY: positionListItem.position_form_y,
+          })
+        }
+        this.positionList = await positionListChange;
+      }
+    })
+  },
   methods: {
     updateMessage: function (e) {
       if (this.processing === false) {
@@ -143,6 +176,7 @@ export default {
       // let pageY = e.pageY; // =>ウィンドウ左上からのy座標
       // let clientX = e.clientX; // =>ページ左上からのx座標
       // let clientY = e.clientY; // =>ページ左上からのy座標
+
       this.positionList.push({
         status: true,
         formStatus: true,
@@ -159,10 +193,12 @@ export default {
       this.processing = false;
     },
     isProcessing: function (currentIndex) {
+      console.log(currentIndex);
       this.processing = true;
       this.positionList[currentIndex].formStatus = false;
     },
     closeMessage: function (currentIndex) {
+      console.log(currentIndex);
       this.processing = true;
       this.positionList[currentIndex].status = false;
       this.positionList[currentIndex].formStatus = false;
@@ -192,7 +228,7 @@ export default {
       console.log(this.$nuxt.$route.params.id); // url取得ここからpostでID取得
       const getPageId = await this.$axios.$post('/api/url',{url:this.$nuxt.$route.params.id});
       await console.log(getPageId);
-      for(let positionListItem of positionList){
+      for await (let positionListItem of positionList){
         // オブジェクトが空ならばループをスキップ
         if (0 === Object.keys(positionListItem).length) {
           continue;
