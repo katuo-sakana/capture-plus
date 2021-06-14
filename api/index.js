@@ -31,7 +31,10 @@ app.post("/getComment", (req, res) => {
   // console.log("ttttt");
   // console.log(pageId);
   (async () => {
-    await Comment.findAll({ where: { page_id: pageId } }).then(comments => {
+    await Comment.findAll({
+      where: { page_id: pageId },
+      order: [["index", "ASC"]]
+    }).then(comments => {
       for (let comment of comments) {
         console.log("コメント確認" + comment);
         commentsdata.push(comment);
