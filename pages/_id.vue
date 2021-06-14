@@ -8,7 +8,6 @@
               <button v-on:click.stop="commentCreate(positionList)" class="mt-3 bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded">保存する</button>
             </div>
           </nav>
-          {{this.$axios.defaults.baseURL}}
           <template v-for="item in positionList">
             <div v-bind:class="{ 'comment-done' : item.done }" class="mt-3" v-if="item.status === true" :key="item.index">
               <div class="rounded overflow-hidden shadow-lg">
