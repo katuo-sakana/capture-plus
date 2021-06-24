@@ -64,7 +64,7 @@
             >
               <div class="update-form-upper">
                 <button v-on:click.stop="closeMessage(item.index)">
-                  閉じる
+                  <span class="close-mark">×</span>
                 </button>
               </div>
               <div class="update-form-content">
@@ -352,6 +352,17 @@ img {
   border-bottom: 1px solid #aaa;
   padding: 0.5em;
 }
+
+.update-form-upper {
+  padding-right: 0.3em;
+}
+
+.close-mark {
+  font-size: 2em;
+  font-weight: bold;
+  line-height: .6;
+}
+
 
 .update-form-textarea {
   padding: 0.3em;
