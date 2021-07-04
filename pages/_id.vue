@@ -257,11 +257,8 @@ export default {
           // window_y: positionListItem.window_y,
           position_form_x: positionListItem.positionFormX,
           position_form_y: positionListItem.positionFormY,
-          // page_id: parseInt(this.pageid),
           page_id: parseInt(getPageId),
-          // page_id: 2,
         };
-        // console.log(request);
 
         const response = await this.$axios.$post('api/commentCreate', request);
         console.log(response);

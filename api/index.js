@@ -10,7 +10,6 @@ const Comment = require("./models/comment");
 const Staff = require("./models/staff");
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-// app.listen(process.env.PORT || 3000);
 const LAUNCH_OPTION = process.env.DYNO
   ? { args: ["--no-sandbox", "--disable-setuid-sandbox"] }
   : { headless: true };
@@ -18,7 +17,6 @@ const LAUNCH_OPTION = process.env.DYNO
 // _id.vueのasyncDataでページURLを取得してそれをもとに、page_idを返却
 app.post("/url", (req, res) => {
   const pageUrl = req.body.url;
-  // console.log(pageUrl + "urlですよ");
   Page.findOne({ where: { url: pageUrl } }).then(page => {
     res.send(page.id.toString()); // 文字列にしないと「Invalid status code: 3 」というエラーが出る
   });
@@ -26,10 +24,7 @@ app.post("/url", (req, res) => {
 
 app.post("/getComment", (req, res) => {
   const commentsdata = [];
-  // console.log(req.body);
   const pageId = req.body.pageId;
-  // console.log("ttttt");
-  // console.log(pageId);
   (async () => {
     await Comment.findAll({
       where: { page_id: pageId },
@@ -46,10 +41,7 @@ app.post("/getComment", (req, res) => {
 });
 
 app.post("/commentCreate", (req, res) => {
-  // console.log(req);
   console.log(req.body);
-  // console.log(req.params);
-  // console.log(req.body.message);
   let recentId = 0; // 最新のIDを取得
   (async () => {
     await Comment.findAll().then(comments => {
@@ -80,8 +72,6 @@ app.post("/commentCreate", (req, res) => {
         position_form_x: req.body.position_form_x,
         position_form_y: req.body.position_form_y,
         page_id: req.body.page_id
-        // createdAt: "2021-06-06 16:46:14",
-        // updatedAt: "2021-06-06 16:46:14"
       }
     }).then(([comment, created]) => {
       if (created) {
@@ -105,8 +95,6 @@ app.post("/commentCreate", (req, res) => {
       }
       res.send("text");
     });
-
-    // await res.send("text");
   })();
 });
 
