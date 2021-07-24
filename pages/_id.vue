@@ -9,10 +9,10 @@
             </div>
           </nav> -->
           <template v-for="item in positionList">
-            <div v-bind:class="{ 'comment-done' : item.done }" class="mt-3" v-if="item.status === true" :key="item.index">
+            <div v-bind:class="{ 'comment-done' : item.done }" class="mt-5" v-if="item.status === true" :key="item.index">
               <div class="rounded overflow-hidden shadow-lg">
                 <div>
-                    <span class="click-btn">
+                    <span class="click-btn click-btn--comment">
                       {{ item.index }}
                     </span>
                     <textarea
@@ -324,6 +324,11 @@ img {
   padding: 0.2em;
   border: 2px solid #fff;
   box-shadow: 2px 2px 2px #333;
+}
+
+.click-btn--comment {
+  position: relative;
+  z-index: 1;
 }
 
 .click-btn--position {
